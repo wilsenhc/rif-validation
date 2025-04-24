@@ -9,29 +9,65 @@ class RifValidatorTest extends TestCase
 {
     public function testValidRif()
     {
-        $rif = new RifValidator();
+        $validator = new RifValidator();
 
-        $this->assertTrue($rif->isValid('J-12345678-9'));
+        // Valid RIF of "Universidad de Carabobo"
+        $rif = 'G-20000041-4';
+
+        $this->assertTrue($validator->isValid($rif));
+
+        // Valid RIF of "Banesco Banco Universal"
+        $rif = 'J-07013380-5';
+
+        $this->assertTrue($validator->isValid($rif));
+
+        // Valid RIF of "Nicolas Maduro Moros"
+        $rif = 'V-05892464-0';
+
+        $this->assertTrue($validator->isValid($rif));
     }
 
-    public function testInvalidRif()
+    public function testItWillReturnFalseIfFormatIsInvalid()
     {
-        $rif = new RifValidator();
+        $validator = new RifValidator();
 
-        $this->assertFalse($rif->isValid('J-12345678-0'));
+        // Starts with a RIF Type that doesn't exist
+        $rif = 'Q-00000000-0';
+
+        $this->assertFalse($validator->isValid($rif));
+
+        // Extra number
+        $rif = 'G-200000041-4';
+
+        $this->assertFalse($validator->isValid($rif));
+
+        // Missing numbers
+        $rif = 'V-5892464';
+
+        $this->assertFalse($validator->isValid($rif));
+
+        // Letter where there should be only numbers
+        $rif = 'G-200F00041-F';
+
+        $this->assertFalse($validator->isValid($rif));
     }
 
-    public function testEmptyRif()
+    public function testItWillConvertValuesToUppercaseBeforeTesting()
     {
-        $rif = new RifValidator();
+        $validator = new RifValidator();
+        // Valid RIF of "Universidad de Carabobo"
+        $rif = 'g-20000041-4';
 
-        $this->assertFalse($rif->isValid(''));
-    }
+        $this->assertTrue($validator->isValid($rif));
 
-    public function testInvalidFormatRif()
-    {
-        $rif = new RifValidator();
+        // Valid RIF of "Banesco Banco Universal"
+        $rif = 'j-07013380-5';
 
-        $this->assertFalse($rif->isValid('12345678'));
+        $this->assertTrue($validator->isValid($rif));
+
+        // Valid RIF of "Nicolas Maduro Moros"
+        $rif = 'v-05892464-0';
+
+        $this->assertTrue($validator->isValid($rif));
     }
 }
