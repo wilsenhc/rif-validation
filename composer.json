@@ -1,0 +1,25 @@
+{
+    "name": "wilsenhc/rif-validation",
+    "description": "A Validation class to check if a RIF is valid",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Wilsenhc\\RifValidation\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Wilsen Hernández",
+            "email": "wilsenforwork@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
